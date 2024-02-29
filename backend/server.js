@@ -1,13 +1,17 @@
 import express from "express";
 import dotenv from "dotenv";
-import authRoute from "./routes/auth.route.js";
+import authRoutes from "./routes/auth.route.js";
+import messageRoutes from "./routes/message.route.js";
 import { connetDatabase } from "./db/connetDatabase.js";
+import cookieParser from "cookie-parser";
 dotenv.config();
 const app = express();
+app.use(cookieParser());
 const PORT = process.env.PORT || 4000;
 app.use(express.json());
 
-app.use("/api/auth", authRoute);
+app.use("/api/auth", authRoutes);
+app.use("/api/messages", messageRoutes);
 
 app.listen(PORT, () => {
   connetDatabase();
